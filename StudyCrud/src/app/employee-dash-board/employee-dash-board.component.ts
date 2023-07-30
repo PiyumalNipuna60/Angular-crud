@@ -12,9 +12,9 @@ export class EmployeeDashBoardComponent {
 
   formValue !: FormGroup;
   employeeModelobj: EmployeeModel = new EmployeeModel();
+  employeeData!: any;
 
   constructor(private formbuilder: FormBuilder, private api: ApiService) { }
-
 
   ngOnInit(): void {
     this.formValue = this.formbuilder.group({
@@ -24,6 +24,8 @@ export class EmployeeDashBoardComponent {
       mobile: [''],
       salary: ['']
     })
+
+    this.getAllEmployee();
   }
 
   saveEmployeeDetails() {
@@ -34,14 +36,23 @@ export class EmployeeDashBoardComponent {
     this.employeeModelobj.salary = this.formValue.value.salary;
 
     this.api.saveEmployee(this.employeeModelobj)
-    .subscribe(res=>{
-      console.log(res);
-      alert("Employee Added Successfully");
-      this.formValue.reset();
-    },
-    err=>{
-      alert("Something Went Wrong");
-    }
-    )
+      .subscribe(res => {
+        console.log(res);
+        alert("Employee Added Successfully");
+        let ref = document.getElementById('cansel')
+        ref?.click();
+        this.formValue.reset();
+      },
+        err => {
+          alert("Something Went Wrong");
+        }
+      )
+  }
+
+  getAllEmployee() {
+    this.api.getAllEmployee()
+      .subscribe(res => {
+        this.employeeData = res;
+      })
   }
 }
