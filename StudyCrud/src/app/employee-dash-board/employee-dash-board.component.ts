@@ -39,6 +39,7 @@ export class EmployeeDashBoardComponent {
       .subscribe(res => {
         console.log(res);
         alert("Employee Added Successfully");
+        this.getAllEmployee();
         let ref = document.getElementById('cansel')
         ref?.click();
         this.formValue.reset();
@@ -54,5 +55,14 @@ export class EmployeeDashBoardComponent {
       .subscribe(res => {
         this.employeeData = res;
       })
+  }
+
+  deleteEmployee(row: any) {
+    this.api.deleteEmployee(row.id)
+      .subscribe(res => {
+        alert("Employee has Deleted..!");
+        this.getAllEmployee();
+      })
+
   }
 }
