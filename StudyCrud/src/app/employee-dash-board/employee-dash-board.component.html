@@ -35,7 +35,7 @@
       <td>{{ row.mobile }}</td>
       <td>{{ row.salary }}</td>
       <td>
-        <button class="btn btn-info">Edit</button>
+        <button (click)="onClick(row)" data-bs-toggle="modal" type="button" data-bs-target="#exampleModal" class="btn btn-info">Edit</button>
         <button (click)="deleteEmployee(row)" class="btn btn-danger mx-3">Delete</button>
       </td>
     </tr>
@@ -140,6 +140,13 @@
           class="btn btn-primary"
         >
           Save
+        </button>
+        <button
+          type="button"
+          (click)="updateEmployeeDetails()"
+          class="btn btn-primary"
+        >
+          Update
         </button>
       </div>
     </div>

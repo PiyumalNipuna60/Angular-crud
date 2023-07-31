@@ -63,6 +63,30 @@ export class EmployeeDashBoardComponent {
         alert("Employee has Deleted..!");
         this.getAllEmployee();
       })
+  }
 
+  onClick(row: any) {
+    this.employeeModelobj.id = row.id;
+    this.formValue.controls['firstName'].setValue(row.firstName);
+    this.formValue.controls['lastName'].setValue(row.lastName);
+    this.formValue.controls['email'].setValue(row.email);
+    this.formValue.controls['mobile'].setValue(row.mobile);
+    this.formValue.controls['salary'].setValue(row.salary);
+  }
+
+  updateEmployeeDetails() {
+    this.employeeModelobj.firstName = this.formValue.value.firstName;
+    this.employeeModelobj.lastName = this.formValue.value.lastName;
+    this.employeeModelobj.email = this.formValue.value.email;
+    this.employeeModelobj.mobile = this.formValue.value.mobile;
+    this.employeeModelobj.salary = this.formValue.value.salary;
+    this.api.updateEmployee(this.employeeModelobj, this.employeeModelobj.id)
+      .subscribe(res => {
+        alert("Employee Update Successfully");
+        this.getAllEmployee();
+        this.formValue.reset();
+        let ref=document.getElementById('cansel');
+        ref?.click();
+      })
   }
 }
